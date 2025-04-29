@@ -2,3 +2,7 @@
 *{
   font-family: "Inter Tight", sans-serif;
 }
+::-webkit-scrollbar{
+  width: 5px;
+  
+}
