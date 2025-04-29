@@ -55,8 +55,9 @@ const Cart = () => {
   };
 
   return (
-    <div className="bg-[#fefefe] min-h-screen px-6 py-10 font-sans">
-      <h1 className="text-4xl font-extrabold mb-2 text-[#0A2342]">Your Cart</h1>
+    <div className="w-full h-full flex justify-center">
+    <div className="bg-[#fefefe] min-h-screen max-w-[1400px] w-full px-6 py-10 font-sans">
+      <h1 className="text-4xl font-extrabold mb-2 max-lg:text-2xl text-[#222]">Your Cart</h1>
       <p className="text-gray-600 mb-6">
         {items.length} item{items.length !== 1 && "s"} ships at checkout
       </p>
@@ -67,30 +68,30 @@ const Cart = () => {
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-2xl shadow-sm"
+              className="flex items-center justify-between p-4 bg-white rounded-2xl shadow-sm"
             >
               <div className="flex items-center space-x-5">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-24 h-24 object-cover rounded-lg border"
+                  className="w-24 h-24 object-cover rounded-lg "
                 />
                 <div>
-                  <h2 className="font-semibold text-lg text-[#0A2342]">
+                  <h2 className="font-semibold max-lg:text-sm text-lg text-[#0A2342]">
                     {item.name}
                   </h2>
                   <p className="text-sm text-gray-500 mt-1">Club Series</p>
                   <div className="flex items-center space-x-3 mt-4">
                     <button
                       onClick={() => updateQuantity(item.id, "dec")}
-                      className="w-8 h-8 text-lg font-bold bg-gray-100 border rounded hover:bg-gray-200"
+                      className="w-8 h-8 text-lg font-bold bg-gray-100  rounded hover:bg-gray-200"
                     >
                       −
                     </button>
                     <span className="text-lg">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item.id, "inc")}
-                      className="w-8 h-8 text-lg font-bold bg-gray-100 border rounded hover:bg-gray-200"
+                      className="w-8 h-8 text-lg font-bold bg-gray-100  rounded hover:bg-gray-200"
                     >
                       +
                     </button>
@@ -98,7 +99,7 @@ const Cart = () => {
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-lg font-semibold text-[#0A2342]">
+                <p className="text-lg font-semibold max-lg:text-sm text-[#0A2342]">
                   ${(item.price * item.quantity).toFixed(2)}
                 </p>
                 <button
@@ -113,9 +114,9 @@ const Cart = () => {
         </div>
 
         {/* Summary */}
-        <div className="col-span-2 bg-[#F8F5F0] p-6 rounded-lg shadow">
-          <h2 className="text-xl font-bold mb-4 text-[#0A2342]">Summary</h2>
-          <div className="space-y-3 text-sm text-gray-700">
+        <div className="col-span-2 flex flex-col bg-[#fffcfc] p-6 max-lg:p-4 rounded-lg shadow">
+          <h2 className="text-xl font-bold mb-4 text-[#333]">Summary</h2>
+          <div className="space-y-3 text-sm text-gray-800">
             <div className="flex justify-between">
               <span>Price</span>
               <span>${subtotal.toFixed(2)}</span>
@@ -143,12 +144,12 @@ const Cart = () => {
                   type="text"
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
-                  className="flex-1 px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-[#0A2342]"
+                  className="flex-1 px-3 py-2 text-sm border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0A2342]"
                   placeholder="Enter code"
                 />
                 <button
                   onClick={applyPromo}
-                  className="px-4 py-2 text-sm font-bold bg-[#0A2342] text-white rounded-md hover:bg-[#0e2c57] transition"
+                  className="px-4 py-2 text-sm font-bold bg-[#222] text-white rounded-md hover:bg-[#333] transition"
                 >
                   Apply
                 </button>
@@ -164,11 +165,13 @@ const Cart = () => {
             <span>Total</span>
             <span>${total.toFixed(2)}</span>
           </div>
-          <Link to="/customerdeatils" className="w-full mt-5 py-3 bg-[#0A2342] text-white text-sm font-bold uppercase rounded-md hover:bg-[#0e2c57] transition duration-300">
+          <Link to="/customerdeatils" className="w-full  mt-5 py-3 bg-rose-500 text-center  text-white text-sm font-bold uppercase rounded-md hover:bg-rose-400 transition duration-300">
             Checkout
           </Link>
         </div>
       </div>
+    </div>
+
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router'
 import React from 'react'
 
 const MenuItem = () => {
@@ -12,7 +13,7 @@ const MenuItem = () => {
           <h1 className=''>$2.99</h1>
           </div>
           <div>
-            <button className='font-bold text-white bg-rose-500 px-6 py-2 rounded-md text-sm'>Add to Cart</button>
+            <Link to="/cart" className='font-bold text-white bg-rose-500 px-6 py-3 rounded-md text-sm'>Add to Cart</Link>
           </div>
        </div>
     </div>
