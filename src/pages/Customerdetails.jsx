@@ -1,6 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+
 export default function Customerdetails() {
   const [selectedMethod, setSelectedMethod] = useState("credit");
   const [fullName, setFullName] = useState("");
@@ -8,8 +11,9 @@ export default function Customerdetails() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
-  const stripePromise = loadStripe("pk_test_51RJSo4H7qih42y7zcrHkGhBquN2jlvvzZCSzWKfnVDD1m1GnPz5yQpovJWoNF9Q64KIrBoSLGcKqFmWfM2vlwFIS00amg5v8ka");
-  const cartAmount=localStorage.getItem('cartTotal')
+
+  const cartAmount = localStorage.getItem("cartTotal");
+
   const handleProceedToPay = async () => {
     const customerDetails = {
       fullName,
@@ -19,28 +23,31 @@ export default function Customerdetails() {
       pincode,
       paymentMethod: selectedMethod,
     };
-  
+
     localStorage.setItem("customerDetails", JSON.stringify(customerDetails));
-  
+
     const stripe = await stripePromise;
-  
-    const response = await fetch(`${import.meta.env.VITE_HOST}/api/payment/create-checkout-session`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        customerDetails,
-        cartAmount: Math.round(parseFloat(cartAmount) * 100)
-      }),
-    });
-  
+
+    const response = await fetch(
+      `${import.meta.env.VITE_HOST}/api/payment/create-checkout-session`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          customerDetails,
+          cartAmount: Math.round(parseFloat(cartAmount) * 100),
+        }),
+      }
+    );
+
     const session = await response.json();
-  
+
     const result = await stripe.redirectToCheckout({
       sessionId: session.id,
     });
-  
+
     if (result.error) {
       console.error(result.error.message);
     }
@@ -48,7 +55,6 @@ export default function Customerdetails() {
 
   return (
     <div className="max-w-md mx-auto shadow-xl mt-5 rounded-xl p-6 space-y-6">
-
       {/* Payment Method */}
       <div>
         <h3 className="font-bold text-start mb-4">Payment Method</h3>
@@ -62,7 +68,9 @@ export default function Customerdetails() {
         <h2 className="font-semibold text-start">Delivery Address</h2>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-500">Full Name</label>
+          <label className="block text-sm font-medium text-neutral-500">
+            Full Name
+          </label>
           <input
             type="text"
             value={fullName}
@@ -73,7 +81,9 @@ export default function Customerdetails() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-500">Email</label>
+          <label className="block text-sm font-medium text-neutral-500">
+            Email
+          </label>
           <input
             type="email"
             value={email}
@@ -84,7 +94,9 @@ export default function Customerdetails() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-500">Phone Number</label>
+          <label className="block text-sm font-medium text-neutral-500">
+            Phone Number
+          </label>
           <input
             type="tel"
             value={phoneNumber}
@@ -95,7 +107,9 @@ export default function Customerdetails() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-500">Address</label>
+          <label className="block text-sm font-medium text-neutral-500">
+            Address
+          </label>
           <input
             type="text"
             value={address}
@@ -106,7 +120,9 @@ export default function Customerdetails() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-500">Pincode / ZIP Code</label>
+          <label className="block text-sm font-medium text-neutral-500">
+            Pincode / ZIP Code
+          </label>
           <input
             type="text"
             value={pincode}
@@ -119,7 +135,10 @@ export default function Customerdetails() {
 
       {/* Buttons */}
       <div className="flex gap-2">
-        <Link to="/cart" className="font-semibold text-center text-[#222] border border-[#222] rounded-md w-[20%] py-3 text-sm">
+        <Link
+          to="/cart"
+          className="font-semibold text-center text-[#222] border border-[#222] rounded-md w-[20%] py-3 text-sm"
+        >
           Back
         </Link>
         <button
