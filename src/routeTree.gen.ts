@@ -11,11 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SuccessImport } from './routes/success'
 import { Route as CustomerdeatilsImport } from './routes/customerdeatils'
 import { Route as CartImport } from './routes/cart'
+import { Route as CancelImport } from './routes/cancel'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const SuccessRoute = SuccessImport.update({
+  id: '/success',
+  path: '/success',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const CustomerdeatilsRoute = CustomerdeatilsImport.update({
   id: '/customerdeatils',
@@ -26,6 +34,12 @@ const CustomerdeatilsRoute = CustomerdeatilsImport.update({
 const CartRoute = CartImport.update({
   id: '/cart',
   path: '/cart',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CancelRoute = CancelImport.update({
+  id: '/cancel',
+  path: '/cancel',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/cancel': {
+      id: '/cancel'
+      path: '/cancel'
+      fullPath: '/cancel'
+      preLoaderRoute: typeof CancelImport
+      parentRoute: typeof rootRoute
+    }
     '/cart': {
       id: '/cart'
       path: '/cart'
@@ -60,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomerdeatilsImport
       parentRoute: typeof rootRoute
     }
+    '/success': {
+      id: '/success'
+      path: '/success'
+      fullPath: '/success'
+      preLoaderRoute: typeof SuccessImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -67,42 +95,52 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cancel': typeof CancelRoute
   '/cart': typeof CartRoute
   '/customerdeatils': typeof CustomerdeatilsRoute
+  '/success': typeof SuccessRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cancel': typeof CancelRoute
   '/cart': typeof CartRoute
   '/customerdeatils': typeof CustomerdeatilsRoute
+  '/success': typeof SuccessRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/cancel': typeof CancelRoute
   '/cart': typeof CartRoute
   '/customerdeatils': typeof CustomerdeatilsRoute
+  '/success': typeof SuccessRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cart' | '/customerdeatils'
+  fullPaths: '/' | '/cancel' | '/cart' | '/customerdeatils' | '/success'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cart' | '/customerdeatils'
-  id: '__root__' | '/' | '/cart' | '/customerdeatils'
+  to: '/' | '/cancel' | '/cart' | '/customerdeatils' | '/success'
+  id: '__root__' | '/' | '/cancel' | '/cart' | '/customerdeatils' | '/success'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CancelRoute: typeof CancelRoute
   CartRoute: typeof CartRoute
   CustomerdeatilsRoute: typeof CustomerdeatilsRoute
+  SuccessRoute: typeof SuccessRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CancelRoute: CancelRoute,
   CartRoute: CartRoute,
   CustomerdeatilsRoute: CustomerdeatilsRoute,
+  SuccessRoute: SuccessRoute,
 }
 
 export const routeTree = rootRoute
@@ -116,18 +154,26 @@ export const routeTree = rootRoute
       "filePath": "__root.jsx",
       "children": [
         "/",
+        "/cancel",
         "/cart",
-        "/customerdeatils"
+        "/customerdeatils",
+        "/success"
       ]
     },
     "/": {
       "filePath": "index.jsx"
+    },
+    "/cancel": {
+      "filePath": "cancel.jsx"
     },
     "/cart": {
       "filePath": "cart.jsx"
     },
     "/customerdeatils": {
       "filePath": "customerdeatils.jsx"
+    },
+    "/success": {
+      "filePath": "success.jsx"
     }
   }
 }

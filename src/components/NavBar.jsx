@@ -3,7 +3,7 @@ import React from 'react'
 const NavBar = () => {
     const menu=[
         {name:"Menu",path:"/"},
-        {name:"Cart",path:"/cart"},
+        {name:"Your Cart",path:"/cart"},
     ]
   return (
     <div className='flex justify-between p-5 sticky top-0 bg-white'>
