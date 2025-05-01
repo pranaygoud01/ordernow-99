@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router';
 import React from 'react';
 import toast from 'react-hot-toast';
 
-const MenuItem = ({ item }) => {
+const MenuItem = ({ item , onAddToCart}) => {
   const handleAddToCart = () => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
   
@@ -21,7 +21,13 @@ const MenuItem = ({ item }) => {
   
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     toast.success("Item added to cart");
+   // Add to the array
+    localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Update localStorage
+    if (onAddToCart) {
+      onAddToCart();
+    }
   };
+  
 
   return (
     <div className='w-full h-[350px] bg-white p-2 rounded-2xl shadow-xl'>
@@ -35,7 +41,7 @@ const MenuItem = ({ item }) => {
       <div className='w-full h-3/12 p-2 flex justify-between items-center'>
         <div className='flex flex-col gap-1'>
           <p className='text-sm font-semibold'>{item.name}</p>
-          <h1>${item.price}</h1>
+          <h1 className='font-semibold text-neutral-800'>&pound;{item.price}</h1>
         </div>
         <div>
           <Link

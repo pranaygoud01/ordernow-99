@@ -112,7 +112,7 @@ const Cart = () => {
                     <h2 className="font-semibold max-lg:text-sm text-lg text-[#0A2342]">
                       {item.name}
                     </h2>
-                    <p className="text-sm text-gray-500 mt-1">Club Series</p>
+                    <p className="text-sm text-gray-500 mt-1">Nuwairahs</p>
                     <div className="flex items-center space-x-3 mt-4">
                       <button
                         onClick={() => updateQuantity(item._id, "dec")}
