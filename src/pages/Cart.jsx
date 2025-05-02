@@ -132,7 +132,7 @@ const Cart = () => {
                 </div>
                 <div className="text-right">
                   <p className="text-lg font-semibold max-lg:text-sm text-[#0A2342]">
-                    ${(item.price * item.quantity).toFixed(2)}
+                    &pound;{(item.price * item.quantity).toFixed(2)}
                   </p>
                   <button
                     onClick={() => removeItem(item._id)}
@@ -151,13 +151,13 @@ const Cart = () => {
             <div className="space-y-3 text-sm text-gray-800">
               <div className="flex justify-between">
                 <span>Price</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>&pound;{subtotal.toFixed(2)}</span>
               </div>
              
               {promoApplied && (
                 <div className="flex justify-between text-green-700">
                   <span>Promo ({promoCode.toUpperCase()})</span>
-                  <span>−${(promoDiscount || 0).toFixed(2)}</span>
+                  <span>−&pound;{(promoDiscount || 0).toFixed(2)}</span>
                 </div>
               )}
 
@@ -190,7 +190,7 @@ const Cart = () => {
             <hr className="my-4" />
             <div className="flex justify-between text-lg font-semibold">
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span>&pound;{total.toFixed(2)}</span>
             </div>
             <Link
               to="/customerdeatils"
