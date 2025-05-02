@@ -1,9 +1,10 @@
 import React from 'react'
-
+import { FiShoppingBag } from "react-icons/fi";
+import { MdRestaurantMenu } from "react-icons/md";
 const NavBar = () => {
     const menu=[
-        {name:"Menu",path:"/"},
-        {name:"Your Cart",path:"/cart"},
+        {name:<MdRestaurantMenu className='text-2xl'/>,path:"/"},
+        {name:<FiShoppingBag className='text-2xl'/>,path:"/cart"},
     ]
   return (
     <div className='flex justify-between p-5 sticky top-0 bg-white'>
