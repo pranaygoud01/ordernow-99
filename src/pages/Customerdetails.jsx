@@ -54,7 +54,7 @@ export default function Customerdetails() {
   };
 
   return (
-    <div className="max-w-md mx-auto shadow-xl mt-5 rounded-xl p-6 space-y-6">
+    <div className="max-w-md mx-auto shadow-xl max-lg:shadow-none max-lg:rounded-none mt-5 rounded-xl p-6 space-y-6">
       {/* Payment Method */}
       <div>
         <h3 className="font-bold text-start mb-4">Payment Method</h3>
