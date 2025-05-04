@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import {PostCode} from '../assets/postcode'; // Import JSON data
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -11,16 +12,44 @@ export default function Customerdetails() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
+  const [cartAmount, setCartAmount] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const cartAmount = localStorage.getItem("cartTotal");
+  const [validPincodes, setValidPincodes] = useState([]);
 
+  // Load cart amount and pincodes
+  useEffect(() => {
+    const cartTotal = localStorage.getItem("cartTotal");
+    if (cartTotal) {
+      setCartAmount(cartTotal);
+    }
+    fetchValidPincodes();
+  }, []);
+
+  // Filter valid pincodes from JSON data
+  const fetchValidPincodes = () => {
+    const pincodes = PostCode.filter((row) => row.InUse.toLowerCase() === "yes")
+      .map((row) => String(row.Postcode).replace(/\s+/g, "")); // Remove spaces from pincode
+
+    setValidPincodes(pincodes);
+  };
+console.log(validPincodes)
   const handleProceedToPay = async () => {
+    const cleanedPincode = pincode.replace(/\s+/g, ""); // Remove spaces from user input
+
+    if (!validPincodes.includes(cleanedPincode)) {
+      setErrorMessage("Sorry, we do not deliver to this pincode.");
+      return;
+    }
+
+    setErrorMessage(""); // Clear any previous error
+
     const customerDetails = {
       fullName,
       email,
       phoneNumber,
       address,
-      pincode,
+      pincode: cleanedPincode, // Save cleaned pincode
       paymentMethod: selectedMethod,
     };
 
@@ -131,6 +160,11 @@ export default function Customerdetails() {
             className="mt-1 block w-full px-4 py-2 text-sm border rounded-md border-neutral-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
+
+        {/* Error Message */}
+        {errorMessage && (
+          <div className="text-red-500 text-sm">{errorMessage}</div>
+        )}
       </div>
 
       {/* Buttons */}
