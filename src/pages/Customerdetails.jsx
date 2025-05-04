@@ -155,7 +155,7 @@ console.log(validPincodes)
           <input
             type="text"
             value={pincode}
-            onChange={(e) => setPincode(e.target.value)}
+            onChange={(e) => setPincode(e.target.value.toUpperCase())}
             placeholder="123456"
             className="mt-1 block w-full px-4 py-2 text-sm border rounded-md border-neutral-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
