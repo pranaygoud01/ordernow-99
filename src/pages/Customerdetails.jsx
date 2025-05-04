@@ -33,7 +33,6 @@ export default function Customerdetails() {
 
     setValidPincodes(pincodes);
   };
-console.log(validPincodes)
   const handleProceedToPay = async () => {
     const cleanedPincode = pincode.replace(/\s+/g, ""); // Remove spaces from user input
 
