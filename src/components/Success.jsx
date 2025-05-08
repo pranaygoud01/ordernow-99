@@ -4,14 +4,14 @@ import axios from "axios";
 
 const Success = () => {
   const hasSentOrder = useRef(false); // ✅
-
+  const branch =localStorage.getItem('selectedBranch')
   useEffect(() => {
     const sendOrderData = async () => {
       try {
         const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
         const cartTotal = JSON.parse(localStorage.getItem("cartTotal")) || 0;
         const customerDetails = JSON.parse(localStorage.getItem("customerDetails")) || {};
-
+        const paymentType=localStorage.getItem('paymentType')
         const orderData = {
           customerName: customerDetails.fullName,
           email: customerDetails.email,
@@ -21,13 +21,24 @@ const Success = () => {
           items: cartItems.map((item) => ({
             itemId: item._id,
             quantity: item.quantity || 1,
+            preparationChoice: item?.preparationChoice?.name ? item.preparationChoice.name : "None",
           })),
           price: cartTotal,
           transactionId: generateTransactionId(),
+          paymentMethod:paymentType
+
         };
 
         if (!hasSentOrder.current) { // ✅ Check if already sent
-          const response = await axios.post(`${import.meta.env.VITE_HOST}/api/orders/create`, orderData);
+          const response = await axios.post(`${import.meta.env.VITE_HOST}/api/orders/create`,
+            orderData,
+            {
+              headers: {
+                "Branch": branch
+              }
+            }
+          );
+          console.log(orderData);
           console.log("Order created successfully:", response.data);
 
           // Clear after successful sending

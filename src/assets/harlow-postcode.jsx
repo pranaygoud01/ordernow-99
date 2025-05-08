@@ -1,4 +1,4 @@
-export const PostCode=[
+const PostCode=[
  {
   "Postcode": "SG12 0AB",
   "InUse": "No"
@@ -21884,3 +21884,5 @@ export const PostCode=[
   "InUse": "Yes"
  }
 ]
+
+export default PostCode

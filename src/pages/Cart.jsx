@@ -7,7 +7,7 @@ const Cart = () => {
   const [promoApplied, setPromoApplied] = useState(false);
   const [promoError, setPromoError] = useState("");
   const [promoDiscount, setPromoDiscount] = useState(0);
- 
+  const branch =localStorage.getItem('selectedBranch')
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     setItems(storedItems);
@@ -49,7 +49,12 @@ const Cart = () => {
 
   const applyPromo = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_HOST}/api/promocodes`);
+      const response = await fetch(`${import.meta.env.VITE_HOST}/api/promocodes`,
+        {method: "GET",
+          headers: {
+          "Branch":branch
+        }}
+      );
       const promoCodes = await response.json();
       const found = promoCodes.find(
         (p) => p.code.toUpperCase() === promoCode.trim().toUpperCase()
@@ -112,7 +117,7 @@ const Cart = () => {
                     <h2 className="font-semibold max-lg:text-sm text-lg text-[#0A2342]">
                       {item.name}
                     </h2>
-                    <p className="text-sm text-gray-500 mt-1">Nuwairahs</p>
+                    <p className="text-sm text-gray-500 mt-1">Sushi and Shakes</p>
                     <div className="flex items-center space-x-3 mt-4">
                       <button
                         onClick={() => updateQuantity(item._id, "dec")}
