@@ -72,23 +72,35 @@ const Menu = () => {
       {/* Branch Selection Popup */}
       {showBranchPopup && (
         <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
-          <div className="w-full h-full max-lg:h-fit max-lg:w-11/12 max-lg:px-8 p-5 bg-white shadow-xl rounded-xl flex flex-col gap-6">
+          <div className="w-full h-full max-lg:h-fit max-lg:w-11/12 max-lg:px-3 p-5 bg-white shadow-xl rounded-xl flex flex-col gap-6">
             {/* <h1 className="font-semibold text-xl text-center">Select Your Branch</h1> */}
-            <div className="grid grid-cols-2 gap-4">
-              {availableBranches.map((branch) => (
+            <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-4">
+              
                 <button
-                  key={branch}
-                  onClick={() => handleBranchSelect(branch)}
-                  className="h-[95vh] max-lg:h-30 hover:shadow-md w-full bg-cover cursor-pointer bg-no-repeat bg-center font-semibold text-white text-sm rounded-lg"
+                  key='Harlow'
+                  onClick={() => handleBranchSelect('Harlow')}
+                  className="h-[95vh] max-lg:h-[40vh] max-lg:w-full hover:shadow-md w-full bg-cover cursor-pointer bg-no-repeat bg-center font-semibold text-white text-sm rounded-lg"
+                  style={{
+                    backgroundImage: `url('https://images.unsplash.com/photo-1565299507177-b0ac66763828?q=80&w=1922&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
+                  }}
+                >
+                  <div className="w-full flex items-center max-lg:text-xl font-extrabold text-white justify-center text-5xl h-full rounded-lg bg-black/40">
+                    Old Harlow
+                  </div>
+                </button>
+                <button
+                  key='Bishop'
+                  onClick={() => handleBranchSelect('Bishop')}
+                  className="h-[95vh] max-lg:h-[40vh] hover:shadow-md w-full bg-cover cursor-pointer bg-no-repeat bg-center font-semibold text-white text-sm rounded-lg"
                   style={{
                     backgroundImage: `url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
                   }}
                 >
                   <div className="w-full flex items-center max-lg:text-xl font-extrabold text-white justify-center text-5xl h-full rounded-lg bg-black/40">
-                    {branch}
+                    Bishop's Stortford
                   </div>
                 </button>
-              ))}
+              
             </div>
           </div>
         </div>
